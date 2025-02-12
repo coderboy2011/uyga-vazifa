@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10-02-2025</title>
+    <style>
+        body {
+            text-align: center;
+            margin: 20px;
+        }
+        canvas {
+            border: 1px solid black;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kordinatalar Joylashuvi</h1>
+    <p>Nuqtalar: A(1, -1), B(1, 1), C(4, -5), D(-4, -5), E(7, 9), F(7, -9) <br>114-bet 20-misol (uzr chiroyli chiqmagan keyin to'g'irlayman)</p>
+
+    <canvas id="cartesianCanvas" width="500" height="500"></canvas>
+
+    <script>
+        const canvas = document.getElementById('cartesianCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const originX = canvas.width / 2;
+        const originY = canvas.height / 2;
+        const scale = 25; // pixels per unit
+
+        // Draw axis
+        ctx.beginPath();
+        ctx.moveTo(0, originY);
+        ctx.lineTo(canvas.width, originY); // X axis
+        ctx.moveTo(originX, 0);
+        ctx.lineTo(originX, canvas.height); // Y axis
+        ctx.strokeStyle = 'black';
+        ctx.stroke();
+
+        // Function to plot points
+        function plotPoint(x, y, label) {
+            const pixelX = originX + x * scale;
+            const pixelY = originY - y * scale;
+
+            ctx.beginPath();
+            ctx.arc(pixelX, pixelY, 5, 0, Math.PI * 2);
+            ctx.fillStyle = 'red';
+            ctx.fill();
+
+            ctx.fillStyle = '#ff8e00';
+            ctx.font = '12px Arial';
+            ctx.fillText(label, pixelX + 10, pixelY - 10);
+        }
+
+        // Function to draw axis labels and ticks
+        function drawAxisLabels() {
+            ctx.fillStyle = 'black';
+            ctx.font = '12px Arial';
+
+            // Draw X axis labels
+            // Draw X axis labels
+            for (let i = -10; i <= 10; i++) {
+                const x = originX + i * scale;
+                ctx.beginPath();
+                ctx.moveTo(x, originY - 5);
+                ctx.lineTo(x, originY + 5);
+                ctx.stroke();
+
+                if (i !== 0) {
+                    ctx.fillText(i, x - 5, originY + 20);
+                }
+            }
+
+            // Draw Y axis labels
+            for (let i = -10; i <= 10; i++) {
+                const y = originY - i * scale;
+                ctx.beginPath();
+                ctx.moveTo(originX - 5, y);
+                ctx.lineTo(originX + 5, y);
+                ctx.stroke();
+
+                if (i !== 0) {
+                    ctx.fillText(i, originX + 10, y + 5);
+                }
+            }
+        }
+
+        // Draw axis labels and ticks
+        drawAxisLabels();
+
+        // Plotting points
+        plotPoint(1, -1, 'A(1, -1)');
+        plotPoint(1, 1, 'B(1, 1)');
+        plotPoint(4, -5, 'C(4, -5)');
+        plotPoint(-4, -5, 'D(-4, -5)');
+        plotPoint(7, 9, 'E(7, 9)');
+        plotPoint(7, -9, 'F(7, -9)');
+    </script>
+</body>
+</html>
